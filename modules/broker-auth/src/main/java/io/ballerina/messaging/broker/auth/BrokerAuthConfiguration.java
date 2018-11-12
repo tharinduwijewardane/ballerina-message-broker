@@ -334,6 +334,8 @@ public class BrokerAuthConfiguration {
 
         private LdapSslConfiguration ssl = new LdapSslConfiguration();
 
+        CacheConfiguration cache = new CacheConfiguration();
+
         public String getHostName() {
             return hostName;
         }
@@ -396,6 +398,14 @@ public class BrokerAuthConfiguration {
 
         public void setSsl(LdapSslConfiguration ssl) {
             this.ssl = ssl;
+        }
+
+        public CacheConfiguration getCache() {
+            return cache;
+        }
+
+        public void setCache(CacheConfiguration cache) {
+            this.cache = cache;
         }
     }
 

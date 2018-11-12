@@ -18,7 +18,7 @@
  */
 package io.ballerina.messaging.broker.auth.ldap;
 
-import io.ballerina.messaging.broker.auth.AuthException;
+import io.ballerina.messaging.broker.auth.AuthInitException;
 import io.ballerina.messaging.broker.auth.BrokerAuthConfiguration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -54,7 +54,7 @@ public class LdapAuthHandler {
     private BrokerAuthConfiguration.LdapConfiguration ldapConfiguration;
     private static final String PLACE_HOLDER = "?";
 
-    public LdapAuthHandler(BrokerAuthConfiguration.LdapConfiguration ldapConfiguration) throws AuthException {
+    public LdapAuthHandler(BrokerAuthConfiguration.LdapConfiguration ldapConfiguration) throws AuthInitException {
 
         this.ldapConfiguration = ldapConfiguration;
         BrokerAuthConfiguration.LdapSslConfiguration sslConfig = ldapConfiguration.getSsl();
@@ -76,7 +76,7 @@ public class LdapAuthHandler {
 
             } catch (KeyStoreException | IOException | NoSuchAlgorithmException | CertificateException
                     | KeyManagementException e) {
-                throw new AuthException("Initializing ldap trust store failed", e);
+                throw new AuthInitException("Initializing ldap trust store failed", e);
             }
         }
     }
@@ -236,7 +236,7 @@ public class LdapAuthHandler {
      * @return whether authenticated or not
      * @throws NamingException if the connection failed
      */
-    public boolean authenticate(String dn, String password) throws NamingException {
+    public boolean authenticate(String dn, char[] password) throws NamingException {
 
         boolean isAuthenticated = false;
 
